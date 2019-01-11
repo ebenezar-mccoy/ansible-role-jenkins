@@ -1,0 +1,31 @@
+- name: nexus gorup
+  group:
+    name: nexus
+    gid: 3667
+
+- name: nexus user
+  user:
+    name: nexus
+    uid: 3667
+    group: nexus
+
+- name: nexus home directory
+  file:
+    path: "{{ nexus_home_directory }}"
+    state: directory
+    owner: nexus
+    group: nexus
+    mode: 0755
+
+- name: configure nexus server
+  docker_container:
+    name: "{{ nexus_container_name }}"
+    image: "{{ nexus_container_image }}"
+    state: started
+    privileged: yes
+    restart_policy: unless-stopped
+    user: 3667:3667
+    ports:
+      - "8080:8081"
+    volumes:
+      - "{{ nexus_home_directory  }}:/nexus-data"
