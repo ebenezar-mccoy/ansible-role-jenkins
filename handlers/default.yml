@@ -1,24 +1,8 @@
-- name: jenkins gorup
-  group:
-    name: jenkins
-    gid: 3666
-
-- name: jenkins user
-  user:
-    name: jenkins
-    uid: 3666
-    group: jenkins
-
-- name: jenkins home directory
-  file:
-    path: "{{ jenkins_home_directory }}"
-    state: directory
-    mode: 0777
-
-- name: configure jenkins server
+- name: restart jenkins
   docker_container:
     name: "{{ jenkins_container_name }}"
     image: "{{ jenkins_container_image }}"
+    restart: yes
     state: started
     privileged: yes
     restart_policy: unless-stopped
