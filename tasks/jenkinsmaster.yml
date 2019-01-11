@@ -13,7 +13,9 @@
   file:
     path: "{{ jenkins_home_directory }}"
     state: directory
-    mode: 0777
+    owner: jenkins
+    group: jenkins
+    mode: 0755
 
 - name: configure jenkins server
   docker_container:
