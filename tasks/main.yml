@@ -1,0 +1,18 @@
+- name: jenkins home directory
+  file:
+    path: "{{ jenkins_home_directory }}"
+    state: directory
+    mode: 0755
+
+- name: configure jenkins server
+  docker_container:
+    name: jenkins-master
+    image: jenkins/jenkins
+    state: present
+    privileged: yes
+    restart_policy: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - "{{ jenkins_home_directory  }}:/var/jenkins_home"
+
