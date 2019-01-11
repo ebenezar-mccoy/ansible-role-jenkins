@@ -1,4 +1,4 @@
-jenkins_container_name: jenkinsmaster
+jenkins_container_name: jenkins-master
 jenkins_container_image: jenkins/jenkins
 
 jenkins_hostname: "{{ groups['jenkinsmaster'][0] }}"
@@ -10,7 +10,17 @@ jenkins_home_directory: "/opt/jenkins_home"
 jenkins_admin_username: ''
 jenkins_admin_password: ''
 
-jenkins_plugins: []
+jenkins_plugins:
+  - blueocean
+  - simple-theme-plugin
+  - maven-plugin
+  - maven-metadata-plugin
+  - config-file-provider
+  - pipeline-maven
+  - pipeline-utility-steps
+  - test-results-analyzer
+  - show-build-parameters
+  - external-monitor-job
 jenkins_plugins_state: present
 jenkins_plugin_updates_expiration: 86400
 jenkins_plugin_timeout: 30

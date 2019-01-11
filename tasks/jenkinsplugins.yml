@@ -14,7 +14,7 @@
     mode: 0440
   changed_when: false
 
-- name: Remove first and last line from json file
+- name: remove first and last line from json file
   replace:
     path: "{{ jenkins_home_directory }}/updates/default.json"
     regexp: "1d;$d"
