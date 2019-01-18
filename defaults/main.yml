@@ -22,6 +22,7 @@ jenkins_plugins:
   - test-results-analyzer
   - show-build-parameters
   - external-monitor-job
+  - active-directory
 
 nexus_container_name: nexus
 nexus_container_image: sonatype/nexus3
