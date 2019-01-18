@@ -1,0 +1,14 @@
+- name: configure jenkins server
+  docker_container:
+    name: "{{ jenkins_container_name }}"
+    image: "{{ jenkins_container_image }}"
+    state: started
+    privileged: yes
+    restart_policy: unless-stopped
+    user: 3666:3666
+    restart: yes
+    pull: yes
+    ports:
+      - "8080:8080"
+    volumes:
+      - "{{ jenkins_home_directory  }}:/var/jenkins_home"
