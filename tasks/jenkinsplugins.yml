@@ -25,10 +25,22 @@
     jenkins_home: "{{ jenkins_home_directory }}"
     url_username: "{{ jenkins_admin_username }}"
     url_password: "{{ jenkins_admin_password }}"
-    state: "{{ jenkins_plugins_state }}"
-    timeout: "{{ jenkins_plugin_timeout }}"
-    updates_expiration: "{{ jenkins_plugin_updates_expiration }}"
+    state: present
+    timeout: 30
+    updates_expiration: 86400
     url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}"
-    with_dependencies: "{{ jenkins_plugins_install_dependencies }}"
-  with_items: "{{ jenkins_plugins }}"
+    with_dependencies: yes
   notify: restart jenkins
+  with_items:
+    - blueocean
+    - simple-theme-plugin
+    - maven-plugin
+    - maven-metadata-plugin
+    - config-file-provider
+    - pipeline-maven
+    - pipeline-utility-steps
+    - test-results-analyzer
+    - show-build-parameters
+    - external-monitor-job
+    - active-directory
+    - role-strategy
