@@ -1,0 +1,35 @@
+- name: nexus conf.d directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ nginx_home_direcotry }}"
+    - "{{ nginx_home_direcotry }}/ssl"
+
+- name: configure nginx proxy
+  docker_container:
+    name: nginx
+    image: nginx
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - "{{ nginx_home_direcotry }}:/etc/nginx/conf.d"
+      - "{{ nginx_home_direcotry }}/ssl:/etc/nginx/ssl"
+    links:
+      - "{{ nginx_contariner_link }}"
+
+- name: nginx configuration
+  template:
+    src: nginx.conf
+    dest: "{{ nginx_home_direcotry }}/default.conf"
+  notify: restart nginx
+
+- name: cert
+  copy:
+    content: "{{ certificates[0].cert + certificates[0].key }}"
+    dest: "{{ nginx_home_direcotry }}/ssl/server.pem"
+  notify: restart nginx

@@ -1,5 +1,5 @@
-jenkins_container_name: jenkins-master
-jenkins_container_image: jenkins/jenkins
+# jenkins
+jenkins_container_name: jenkinsmaster
 jenkins_home_directory: "/opt/jenkins_home"
 jenkins_admin_username: ''
 jenkins_admin_password: ''
@@ -7,6 +7,9 @@ jenkins_hostname: "{{ groups['jenkinsmaster'][0] }}"
 jenkins_http_port: 8080
 jenkins_url_prefix: ""
 
+# nexus
 nexus_container_name: nexus
-nexus_container_image: sonatype/nexus3
 nexus_home_directory: '/opt/nexus'
+
+# nginx proxy
+nginx_home_direcotry: '/opt/nginx'

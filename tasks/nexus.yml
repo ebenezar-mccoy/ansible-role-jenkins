@@ -20,9 +20,8 @@
 - name: configure nexus server
   docker_container:
     name: "{{ nexus_container_name }}"
-    image: "{{ nexus_container_image }}"
+    image: sonatype/nexus3
     state: started
-    privileged: yes
     restart_policy: unless-stopped
     user: 3667:3667
     ports:
