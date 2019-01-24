@@ -1,29 +1,9 @@
 - name: restart jenkins
   docker_container:
     name: "{{ jenkins_container_name }}"
-    image: "{{ jenkins_container_image }}"
-    privileged: yes
-    state: started
-    restart_policy: unless-stopped
     restart: yes
-    user: 3666:3666
-    ports:
-      - "8080:8080"
-    volumes:
-      - "{{ jenkins_home_directory  }}:/var/jenkins_home"
 
 - name: restart nginx
   docker_container:
     name: nginx
-    image: nginx
-    state: started
-    restart_policy: unless-stopped
     restart: yes
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - "{{ nginx_home_direcotry }}:/etc/nginx/conf.d"
-      - "{{ nginx_home_direcotry }}/ssl:/etc/nginx/ssl"
-    links:
-      - "{{ nginx_contariner_link }}"
