@@ -45,3 +45,4 @@
     - external-monitor-job
     - active-directory
     - role-strategy
+    - ansible
