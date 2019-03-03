@@ -1,0 +1,55 @@
+❯ cat plays/ci/configure.yml
+---
+- hosts: jenkins,nexus
+  become: yes
+  become_method: sudo
+  gather_subset: [ 'min', 'network' ]
+
+  roles:
+    - docker
+  tags:
+    - docker
+
+- hosts: jenkinsmaster
+  become: yes
+  become_method: sudo
+  gather_subset: [ 'min', 'network'  ]
+
+  tasks:
+    - import_role:
+        name: ci
+        tasks_from: jenkinsmaster
+      tags:
+        - jenkinsmaster-base
+        - jenkins
+    - import_role:
+        name: ci
+        tasks_from: jenkinsplugins
+      tags:
+        - jenkinsmaster-plugins
+        - jenkins
+    - import_role:
+        name: ci
+        tasks_from: jenkinsproxy
+      tags:
+        - jenkinsproxy
+        - jenkins
+
+
+- hosts: nexus
+  become: yes
+  become_method: sudo
+  gather_subset: [ 'min', 'network'  ]
+
+  tasks:
+    - import_role:
+        name: ci
+        tasks_from: nexus
+      tags:
+        - nexus
+    - import_role:
+        name: ci
+        tasks_from: jenkinsproxy
+      tags:
+        - jenkinsproxy
+        - jenkins
