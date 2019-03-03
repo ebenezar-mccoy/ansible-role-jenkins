@@ -15,7 +15,7 @@
   changed_when: false
 
 - name: remove first and last line from json file
-  replace:
+  replace:x
     path: "{{ jenkins_home_directory }}/updates/default.json"
     regexp: "1d;$d"
 
@@ -46,3 +46,4 @@
     - active-directory
     - role-strategy
     - ansible
+    - ansicolor
